@@ -1,11 +1,11 @@
 1. 
-type Faculties = {
+type Faculty = {
     id: number;
     faculty: string;
     subjects: string[];
     countStudents: number
 }
-const faculties: Faculties[] = [
+const faculties: Faculty[] = [
     {
   id: 1,
   faculty: "History department",
@@ -33,7 +33,7 @@ const faculties: Faculties[] = [
 ];
 
 2.
-type Movies = {
+type Movie = {
     id: number;
     title: string;
     year: number;
@@ -53,7 +53,7 @@ type Movies = {
     production: string;
 }
 
-const movies: Movies[] = [
+const movies: Movie[] = [
     {
       id: 1,
       title: "Black Widow",
