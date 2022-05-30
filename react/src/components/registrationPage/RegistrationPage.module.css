@@ -1,0 +1,31 @@
+.registrationPage {
+    background-color: var(--background-grey);
+    padding: 150px 0;
+    height: 100vh;
+}
+
+.linksGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.link {
+    border: none;
+    color: var(--background-blue);
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 200px;
+    width: 100%;
+}

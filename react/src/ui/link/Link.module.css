@@ -1,0 +1,15 @@
+.link {
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.link_blue {
+    color: var(--background-blue);
+}
+
+.link_white {
+    color: white;
+}

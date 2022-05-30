@@ -1,0 +1,28 @@
+.title {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color-blue);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.successPage {
+    background-color: var(--background-grey);
+    padding: 150px 0;
+    height: 100vh;
+}
+
+.containerSuccesPage {
+    max-width: 225px;
+    margin: 0 auto;
+    border: 2px solid var(--text-color-blue);
+    border-radius: 20px;
+    padding: 20px 30px;
+    background-color: white;
+}
+
+.text {
+    text-align: center;
+    color: var(--text-color-grey);
+    margin-bottom: 30px;
+}
