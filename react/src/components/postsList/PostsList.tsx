@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
-import Button from "../../ui/button/Button";
 import PostCard from "../postCard/PostCard";
 import styles from "./PostsList.module.css";
 
 export type Post = {
-  id: number;
-  image?: string;
+  id: string | number;
+  image?: string | undefined;
   text: string;
   date: string;
   lesson_num?: number;
   title: string;
   author?: number;
 };
-type PostsListProps = {};
+type PostsListProps = { onPreviewClick?: (id: string | number) => void };
 
-const PostsList: React.FC<PostsListProps> = () => {
+const PostsList: React.FC<PostsListProps> = ({ onPreviewClick }) => {
   const [items, setItems] = useState<Post[]>([]);
   useEffect(() => {
     async function fetchData() {
       const data = await fetch(
-        "https://studapi.teachmeskills.by/blog/posts/?limit=20"
+        "https://studapi.teachmeskills.by/blog/posts/?limit=10"
       );
       const { results } = await data.json();
       setItems(results);
@@ -28,20 +27,11 @@ const PostsList: React.FC<PostsListProps> = () => {
   }, []);
 
   return (
-    <section className={styles.landing}>
-      <div className="container">
-        <div className={styles.group}>
-          <h2 className={styles.title}>My posts</h2>
-          <div className={styles.btnContainer}>
-            <Button>+ Add</Button>
-          </div>
-        </div>
-
-        <div className={styles.list}>
-          {items.map((item) => (
-            <PostCard {...item} key={item.id} /> // image={item.image}
-          ))}
-        </div>
+    <section>
+      <div className={styles.list}>
+        {items.map((item) => (
+          <PostCard {...item} key={item.id} onPreviewClick={onPreviewClick} />
+        ))}
       </div>
     </section>
   );

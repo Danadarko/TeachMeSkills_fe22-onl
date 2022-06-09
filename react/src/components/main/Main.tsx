@@ -1,4 +1,4 @@
-import Link from "../../ui/link/Link";
+import PrimaryLink from "../../ui/link/PrimaryLink";
 
 import styles from "./Main.module.css";
 import { ReactComponent as UserIcon } from "../../assets/user-icon.svg";
@@ -7,10 +7,10 @@ type MainProps = {};
 const Main: React.FC<MainProps> = () => {
   return (
     <div className={styles.main}>
-      <Link>
+      <PrimaryLink>
         <UserIcon />
         Username
-      </Link>
+      </PrimaryLink>
     </div>
   );
 };

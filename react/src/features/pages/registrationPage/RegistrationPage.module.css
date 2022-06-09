@@ -1,6 +1,6 @@
-.loginPage {
-    background-color: var(--background-grey);
-    padding: 150px 0;
+.registrationPage {
+    background-color: var(--background-white);
+    padding: 100px 0;
     height: 100vh;
 }
 
@@ -13,12 +13,13 @@
 
 .link {
     border: none;
-    color: var(--background-blue);
+    color: var(--text-color-blue);
     font-size: 18px;
     text-decoration: none;
     font-weight: 600;
     font-size: 20px;
     cursor: pointer;
+    background-color: transparent;
 }
 
 .form {

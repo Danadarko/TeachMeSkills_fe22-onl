@@ -13,4 +13,9 @@
         padding: 5px;
         margin-top: 5px;
         width: 100%;
+        background-color: var(--background-grey);
+    }
+    
+    .input:focus {
+        box-shadow: 2px 2px;
     }

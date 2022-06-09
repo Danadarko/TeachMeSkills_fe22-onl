@@ -1,19 +1,18 @@
 import React from "react";
-import Button from "../../ui/button/Button";
+import Button from "../../../ui/button/Button";
 import styles from "./SuccessPage.module.css";
-
-import { AppPages } from "../../types";
+import { Link } from "react-router-dom";
+import { AppPages } from "../../../types";
 
 export type LoginForm = {
   email: string;
   password: string;
+  name: string;
 };
 
-type SuccessPageProps = {
-  setPage: (page: AppPages) => void;
-};
+type SuccessPageProps = {};
 
-const SuccessPage: React.FC<SuccessPageProps> = ({ setPage }) => {
+const SuccessPage: React.FC<SuccessPageProps> = () => {
   return (
     <section className={styles.successPage}>
       <div className="container">
@@ -23,9 +22,11 @@ const SuccessPage: React.FC<SuccessPageProps> = ({ setPage }) => {
             Email: confirmed.
             <br /> Your registration is now completed
           </p>
-          <Button type="button" onClick={() => setPage(AppPages.LOGIN)}>
-            Login
-          </Button>
+          <Link to={AppPages.LOGIN}>
+            <Button type="button" role="presentation">
+              Login
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

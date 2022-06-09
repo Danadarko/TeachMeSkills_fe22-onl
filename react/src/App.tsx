@@ -1,58 +1,62 @@
-import React, { useState } from "react";
-import styles from "./App.module.css";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import React from "react";
+import Header from "./components/header/Header";
 import LandingPage from "./components/landingPage/LandingPage";
-import LoginPage, { LoginForm } from "./components/loginPage/LoginPage";
-import RegistrationPage from "./components/registrationPage/RegistrationPage";
-import SuccessPage from "./components/successPage/SuccessPage";
+import LoginPage, { LoginForm } from "./features/pages/loginPage/LoginPage";
+import RegistrationPage from "./features/pages/registrationPage/RegistrationPage";
+import SuccessPage from "./features/pages/successPage/SuccessPage";
+import MyPostsPage from "./features/pages/myPostsPage/MyPostsPage";
 import { AppPages } from "./types";
+import "./App.css";
+import { AppContext } from "./AppContext";
 
 const users: LoginForm[] = [];
 function App() {
-  const [currentPage, setCurrentPage] = useState(AppPages.LOGIN);
-
-  const renderPage = (
-    currentPage: AppPages
-  ): React.ReactElement | string | number => {
-    switch (currentPage) {
-      case AppPages.LOGIN:
-        return (
-          <LoginPage
-            onLogin={(form: LoginForm) => {
-              const foundUser = users.find(
-                (user) =>
-                  user.email === form.email && user.password === form.password
-              );
-              if (!foundUser) {
-                return false;
-              }
-              setCurrentPage(AppPages.LANDING);
-              return true;
-            }}
-            setPage={setCurrentPage}
+  const navigate = useNavigate();
+  const appRef = React.createRef<HTMLDivElement>();
+  return (
+    <div className="App" ref={appRef}>
+      <AppContext.Provider value={appRef}>
+        <Header />
+        <Routes>
+          <Route
+            path={AppPages.LOGIN}
+            element={
+              <LoginPage
+                onLogin={(form: LoginForm) => {
+                  const foundUser = users.find(
+                    (user) =>
+                      user.email === form.email &&
+                      user.password === form.password &&
+                      user.name === form.name
+                  );
+                  if (!foundUser) {
+                    return false;
+                  }
+                  navigate(AppPages.LANDING);
+                  return true;
+                }}
+              />
+            }
           />
-        );
-      case AppPages.REGISTRATION:
-        return (
-          <RegistrationPage
-            onRegistration={(form: LoginForm) => {
-              users.push(form);
-              setCurrentPage(AppPages.SUCCESS_PAGE);
-            }}
-            setPage={setCurrentPage}
+          <Route
+            path={AppPages.REGISTRATION}
+            element={
+              <RegistrationPage
+                onRegistration={(form: LoginForm) => {
+                  users.push(form);
+                  navigate(AppPages.SUCCESS_PAGE);
+                }}
+              />
+            }
           />
-        );
-      case AppPages.LANDING:
-        return <LandingPage />;
-      case AppPages.RESET_PASSWORD:
-        return "RESET_PASSWORD";
-      case AppPages.SUCCESS_PAGE:
-        return <SuccessPage setPage={setCurrentPage} />;
-      default:
-        return 404;
-    }
-  };
-
-  return <div className={styles.App}>{renderPage(currentPage)}</div>;
+          <Route path={AppPages.SUCCESS_PAGE} element={<SuccessPage />}></Route>
+          <Route path={AppPages.LANDING} element={<LandingPage />} />
+          <Route path={AppPages.POSTS} element={<MyPostsPage />} />
+        </Routes>
+      </AppContext.Provider>
+    </div>
+  );
 }
 
 export default App;

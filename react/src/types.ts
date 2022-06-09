@@ -1,7 +1,9 @@
 export enum AppPages {
-    LOGIN = "LOGIN",
-    REGISTRATION = "REGISTRATION",
-    LANDING = "LANDING",
-    RESET_PASSWORD = "RESET_PASSWORD",
-    SUCCESS_PAGE = "SUCCESS_PAGE",
+    LOGIN = "/login",
+    REGISTRATION = "/registration",
+    LANDING = "/landing",
+    POSTS = "/posts",
+    
+    RESET_PASSWORD = "/reset-password",
+    SUCCESS_PAGE = "/success-page",
   }
