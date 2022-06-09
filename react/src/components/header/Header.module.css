@@ -1,0 +1,24 @@
+.header {
+    background-color: white;
+    height: 10vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding-top: 10px;
+}
+
+.headerIsOpen {
+    background-color: var(--background-blue);
+}
+
+.button {
+    border: none;
+    background-color: transparent;
+}
+
+.headerWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

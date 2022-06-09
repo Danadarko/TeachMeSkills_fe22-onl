@@ -1,0 +1,28 @@
+.content {
+    padding: 150px 0;
+    background-image: url(../../../assets/landing-bg.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.title {
+    margin-bottom: 50px;
+    font-size: 40px;
+    max-width: 250px;
+    text-transform: capitalize;
+}
+
+.text {
+    margin-bottom: 30px;
+    max-width: 400px;
+}
+
+.span {
+    color: var(--background-blue);
+}
+
+.btnContainer {
+    max-width: 90px;
+}
