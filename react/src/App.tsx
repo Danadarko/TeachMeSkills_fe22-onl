@@ -9,6 +9,7 @@ import MyPostsPage from "./features/pages/myPostsPage/MyPostsPage";
 import { AppPages } from "./types";
 import "./App.css";
 import { AppContext } from "./AppContext";
+import InformationPage from "./features/pages/informationPage/InformationPage";
 
 const users: LoginForm[] = [];
 function App() {
@@ -53,6 +54,10 @@ function App() {
           <Route path={AppPages.SUCCESS_PAGE} element={<SuccessPage />}></Route>
           <Route path={AppPages.LANDING} element={<LandingPage />} />
           <Route path={AppPages.POSTS} element={<MyPostsPage />} />
+          <Route
+            path={AppPages.INFORMATION_PAGE}
+            element={<InformationPage />}
+          />
         </Routes>
       </AppContext.Provider>
     </div>

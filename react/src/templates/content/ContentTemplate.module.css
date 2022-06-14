@@ -1,0 +1,8 @@
+.wrapper {
+    padding: 70px 0;
+    background-color: var(--background-white);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}

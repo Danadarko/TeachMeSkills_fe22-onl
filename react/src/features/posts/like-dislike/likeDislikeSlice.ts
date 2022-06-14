@@ -17,7 +17,7 @@ const likeDislikeSlice = createSlice({
       if (payload.state === "like") {
         state[payload.id] = { count: currentCount + 1, state: "like" };
       } else if (payload.state === "dislike") {
-        state[payload.id] = { count: currentCount - 2, state: "dislike" };
+        state[payload.id] = { count: currentCount - 1, state: "dislike" };
       }
     },
     reset(state,{

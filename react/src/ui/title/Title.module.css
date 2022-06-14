@@ -3,4 +3,5 @@
     font-size: 40px;
     max-width: 250px;
     text-transform: capitalize;
+    color: var(--ls-blue);
 }

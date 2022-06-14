@@ -1,0 +1,25 @@
+.tab {
+    max-width: 70px;
+    width: 100%;
+    border-radius: 20px;
+    padding: 5px 10px;
+    background-color: var(--ls-label-color);
+    color: var(--primary-text-color);
+    margin-right: 10px;
+    border: none;
+}
+
+.active {
+    background-color: var(--ls-blue);
+    max-width: 70px;
+    width: 100%;
+    border-radius: 20px;
+    padding: 5px 10px;
+    color: var(--primary-text-color);
+    margin-right: 10px;
+    border: none;
+}
+
+.tab:last-child {
+    margin-right: 0;
+}
