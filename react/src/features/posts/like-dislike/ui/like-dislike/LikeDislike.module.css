@@ -2,6 +2,7 @@
     width: 100px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .wrapper>* {
@@ -11,4 +12,12 @@
 .count {
     width: 20px;
     line-height: 1;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.icon path {
+    fill: var(--ls-blue);
 }

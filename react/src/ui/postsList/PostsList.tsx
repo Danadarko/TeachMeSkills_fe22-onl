@@ -11,9 +11,17 @@ export type Post = {
   title: string;
   author?: number;
 };
-type PostsListProps = { onPreviewClick?: (id: string | number) => void };
+type PostsListProps = {
+  onPreviewClick?: (id: string | number) => void;
+  LikeDislike?: React.ComponentType<{ id: string | number }>;
+  Bookmark?: React.ComponentType<{ id: string | number }>;
+};
 
-const PostsList: React.FC<PostsListProps> = ({ onPreviewClick }) => {
+const PostsList: React.FC<PostsListProps> = ({
+  onPreviewClick,
+  LikeDislike,
+  Bookmark,
+}) => {
   const [items, setItems] = useState<Post[]>([]);
   useEffect(() => {
     async function fetchData() {
@@ -30,7 +38,13 @@ const PostsList: React.FC<PostsListProps> = ({ onPreviewClick }) => {
     <section>
       <div className={styles.list}>
         {items.map((item) => (
-          <PostCard {...item} key={item.id} onPreviewClick={onPreviewClick} />
+          <PostCard
+            {...item}
+            key={item.id}
+            onPreviewClick={onPreviewClick}
+            LikeDislike={LikeDislike}
+            Bookmark={Bookmark}
+          />
         ))}
       </div>
     </section>

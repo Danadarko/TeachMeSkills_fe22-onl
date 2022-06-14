@@ -1,10 +1,11 @@
-import PostsList, { Post } from "../../../components/postsList/PostsList";
+import { Post } from "../../../ui/postsList/PostsList";
 import Button from "../../../ui/button/Button";
-import styles from "../../../components/postsList/PostsList.module.css";
+import styles from "../../../ui/postsList/PostsList.module.css";
 import { setSelectedPost } from "../../posts/selectedPostSlice";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
-import PostCard from "../../../components/postCard/PostCard";
+import PostCard from "../../../ui/postCard/PostCard";
 import { useEffect, useState } from "react";
+import PostsCardList from "../../posts/posts-card-list/PostsCardList";
 
 type MyPostsPageProps = {};
 
@@ -26,7 +27,7 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
       ? items.find((item) => item.id === selectedPostId)
       : null;
   const dispatch = useAppDispatch();
-  console.log(selectedPostId);
+
   return (
     <section className={styles.landing}>
       {selectedPostId != null ? (
@@ -44,7 +45,9 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
             <Button>+ Add</Button>
           </div>
         </div>
-        <PostsList onPreviewClick={(id) => dispatch(setSelectedPost(id))} />
+        <PostsCardList
+          onPreviewClick={(id) => dispatch(setSelectedPost(id))}
+        ></PostsCardList>
       </div>
     </section>
   );

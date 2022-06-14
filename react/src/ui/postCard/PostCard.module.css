@@ -53,3 +53,11 @@
     display: flex;
     justify-content: space-between;
 }
+
+.flexBlock>* {
+    margin-bottom: 0;
+}
+
+.flexBlock:not(:last-child) {
+    margin-bottom: 10px;
+}

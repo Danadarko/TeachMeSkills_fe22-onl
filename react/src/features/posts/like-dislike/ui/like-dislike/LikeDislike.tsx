@@ -18,11 +18,51 @@ const LikeDislike: React.FC<LikeDislikeProps> = ({
   currentState,
   count,
 }) => {
-  const LikeIcon = <FontAwesomeIcon icon={faThumbsUp} />;
-  const PressedLikeIcon = <FontAwesomeIcon icon={pressedLike} />;
+  const LikeIcon = (
+    <FontAwesomeIcon
+      icon={faThumbsUp}
+      onClick={(event) => {
+        event.preventDefault();
+        onLikeClick();
+      }}
+      role="button"
+      className={styles.icon}
+    />
+  );
+  const PressedLikeIcon = (
+    <FontAwesomeIcon
+      icon={pressedLike}
+      onClick={(event) => {
+        event.preventDefault();
+        onLikeClick();
+      }}
+      role="button"
+      className={styles.icon}
+    />
+  );
 
-  const DislikeIcon = <FontAwesomeIcon icon={faThumbsDown} />;
-  const PressedDislikeIcon = <FontAwesomeIcon icon={pressedDislike} />;
+  const DislikeIcon = (
+    <FontAwesomeIcon
+      icon={faThumbsDown}
+      onClick={(event) => {
+        event.preventDefault();
+        onDislikeClick();
+      }}
+      role="button"
+      className={styles.icon}
+    />
+  );
+  const PressedDislikeIcon = (
+    <FontAwesomeIcon
+      icon={pressedDislike}
+      onClick={(event) => {
+        event.preventDefault();
+        onDislikeClick();
+      }}
+      role="button"
+      className={styles.icon}
+    />
+  );
 
   return (
     <div className={styles.wrapper}>
@@ -32,7 +72,7 @@ const LikeDislike: React.FC<LikeDislikeProps> = ({
       </div>
       <div>
         {currentState === "dislike" ? PressedDislikeIcon : DislikeIcon}
-        <div className={styles.count}>{count < 0 ? count : null}</div>
+        <div className={styles.count}>{count < 0 ? Math.abs(count) : null}</div>
       </div>
     </div>
   );
