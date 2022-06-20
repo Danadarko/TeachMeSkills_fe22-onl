@@ -3,6 +3,7 @@ import Button from "../../../ui/button/Button";
 import styles from "./SuccessPage.module.css";
 import { Link } from "react-router-dom";
 import { AppPages } from "../../../types";
+import Header from "../../../components/header/Header";
 
 export type LoginForm = {
   email: string;
@@ -15,6 +16,7 @@ type SuccessPageProps = {};
 const SuccessPage: React.FC<SuccessPageProps> = () => {
   return (
     <section className={styles.successPage}>
+      <Header />
       <div className="container">
         <div className={styles.containerSuccesPage}>
           <h2 className={styles.title}>Success</h2>

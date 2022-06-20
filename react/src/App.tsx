@@ -10,6 +10,7 @@ import { AppPages } from "./types";
 import "./App.css";
 import { AppContext } from "./AppContext";
 import InformationPage from "./features/pages/informationPage/InformationPage";
+import Activate from "./features/pages/activate/Activate";
 
 const users: LoginForm[] = [];
 function App() {
@@ -18,13 +19,12 @@ function App() {
   return (
     <div className="App" ref={appRef}>
       <AppContext.Provider value={appRef}>
-        <Header />
         <Routes>
           <Route
             path={AppPages.LOGIN}
             element={
               <LoginPage
-                onLogin={(form: LoginForm) => {
+              /*onLogin={(form: LoginForm) => {
                   const foundUser = users.find(
                     (user) =>
                       user.email === form.email &&
@@ -36,7 +36,7 @@ function App() {
                   }
                   navigate(AppPages.LANDING);
                   return true;
-                }}
+                }}*/
               />
             }
           />
@@ -57,6 +57,10 @@ function App() {
           <Route
             path={AppPages.INFORMATION_PAGE}
             element={<InformationPage />}
+          />
+          <Route
+            path={`${AppPages.ACTIVATE}/:uid/:token`}
+            element={<Activate />}
           />
         </Routes>
       </AppContext.Provider>

@@ -1,3 +1,6 @@
+import PostsLikeDislike from "../../features/posts/like-dislike/posts-like-dislike";
+import LikeDislike from "../../features/posts/like-dislike/ui/like-dislike/LikeDislike";
+import PostsMarkedUnmarked from "../../features/posts/marked-posts/posts-marked-unmarked";
 import Button from "../button/Button";
 import styles from "./PostCard.module.css";
 
@@ -10,8 +13,6 @@ type PostCardProps = {
   title: string;
   author?: number;
   onPreviewClick?: (id: string | number) => void;
-  LikeDislike?: React.ComponentType<{ id: string | number }>;
-  Bookmark?: React.ComponentType<{ id: string | number }>;
 };
 
 const PostCard: React.FC<PostCardProps> = ({
@@ -23,8 +24,6 @@ const PostCard: React.FC<PostCardProps> = ({
   title,
   author,
   onPreviewClick,
-  LikeDislike,
-  Bookmark,
 }) => {
   return (
     <article className={styles.card}>
@@ -35,13 +34,8 @@ const PostCard: React.FC<PostCardProps> = ({
       <p className={styles.text}>{text}</p>
       <div className={styles.flexBlock}>
         <p className={styles.date}>{new Date(date).toLocaleDateString()}</p>
-        {/*<LikeDislike
-          onLikeClick={() => {}}
-          onDislikeClick={() => {}}
-          count={-39}
-          currentState={"like"}
-  ></LikeDislike>*/}
-        {LikeDislike ? <LikeDislike id={id} /> : null}
+
+        <PostsLikeDislike id={id} />
       </div>
       <div className={styles.flexBlock}>
         <Button
@@ -53,8 +47,7 @@ const PostCard: React.FC<PostCardProps> = ({
         >
           Preview
         </Button>
-        {Bookmark ? <Bookmark id={id} /> : null}
-        {/*<BookMark onClick={() => {}} marked={false} />*/}
+        <PostsMarkedUnmarked id={id} />
       </div>
     </article>
   );

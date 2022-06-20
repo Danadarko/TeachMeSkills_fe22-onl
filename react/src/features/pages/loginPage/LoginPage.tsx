@@ -5,6 +5,9 @@ import { AppPages } from "../../../types";
 import styles from "./LoginPage.module.css";
 import { ReactComponent as VerticalBar } from "../../../assets/vertical-bar icon.svg";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../../hooks";
+import { login } from "../../auth/authSlice";
+import Header from "../../../components/header/Header";
 
 export type LoginForm = {
   email: string;
@@ -13,7 +16,7 @@ export type LoginForm = {
 };
 
 type LoginPageProps = {
-  onLogin: (form: LoginForm) => boolean;
+  onLogin?: (form: LoginForm) => boolean;
 };
 
 const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
@@ -21,9 +24,11 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const emailRef = React.createRef<HTMLInputElement>();
+  const dispatch = useAppDispatch();
   //const passwordRef = React.createRef<HTMLInputElement>();
   return (
     <section className={styles.loginPage}>
+      <Header />
       <div className="container">
         <div className={styles.linksGroup}>
           <button type="button" className={styles.link}>
@@ -38,7 +43,8 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            onLogin({ email, password, name });
+            dispatch(login({ email, password }));
+            console.log(e);
           }}
           className={styles.form}
         >

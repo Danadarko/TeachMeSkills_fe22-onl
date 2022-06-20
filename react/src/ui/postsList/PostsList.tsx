@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
 import PostCard from "../postCard/PostCard";
 import styles from "./PostsList.module.css";
 
@@ -13,38 +14,16 @@ export type Post = {
 };
 type PostsListProps = {
   onPreviewClick?: (id: string | number) => void;
-  LikeDislike?: React.ComponentType<{ id: string | number }>;
-  Bookmark?: React.ComponentType<{ id: string | number }>;
+
+  posts: Post[];
 };
 
-const PostsList: React.FC<PostsListProps> = ({
-  onPreviewClick,
-  LikeDislike,
-  Bookmark,
-}) => {
-  const [items, setItems] = useState<Post[]>([]);
-  useEffect(() => {
-    async function fetchData() {
-      const data = await fetch(
-        "https://studapi.teachmeskills.by/blog/posts/?limit=10"
-      );
-      const { results } = await data.json();
-      setItems(results);
-    }
-    fetchData();
-  }, []);
-
+const PostsList: React.FC<PostsListProps> = ({ onPreviewClick, posts }) => {
   return (
     <section>
       <div className={styles.list}>
-        {items.map((item) => (
-          <PostCard
-            {...item}
-            key={item.id}
-            onPreviewClick={onPreviewClick}
-            LikeDislike={LikeDislike}
-            Bookmark={Bookmark}
-          />
+        {posts.map((post) => (
+          <PostCard {...post} key={post.id} onPreviewClick={onPreviewClick} />
         ))}
       </div>
     </section>

@@ -8,9 +8,7 @@ type PostsMarkedUnmarkedProps = {
 };
 
 const PostsMarkedUnmarked: React.FC<PostsMarkedUnmarkedProps> = ({ id }) => {
-  const { state } = useAppSelector(
-    (state) => state.markedPost[id] ?? { state: false }
-  );
+  const state = useAppSelector((state) => state.markedPost[id] ?? false);
   const dispatch = useAppDispatch();
 
   return (

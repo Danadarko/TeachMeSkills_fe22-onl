@@ -5,6 +5,9 @@ import { AppPages } from "../../../types";
 import styles from "./RegistrationPage.module.css";
 import { ReactComponent as VerticalBar } from "../../../assets/vertical-bar icon.svg";
 import { Link } from "react-router-dom";
+import { useAppDispatch } from "../../../hooks";
+import { register } from "../../auth/authSlice";
+import Header from "../../../components/header/Header";
 
 export type LoginForm = {
   email: string;
@@ -22,9 +25,11 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const dispatch = useAppDispatch();
 
   return (
     <section className={styles.registrationPage}>
+      <Header />
       <div className="container">
         <div className={styles.linksGroup}>
           <Link to={AppPages.LOGIN} className={styles.link}>
@@ -39,6 +44,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
+            dispatch(register({ email, password, username: name }));
             onRegistration({ email, password, name });
           }}
           className={styles.form}

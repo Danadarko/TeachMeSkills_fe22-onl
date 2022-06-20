@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Header from "../../../components/header/Header";
 import ContentTemplate from "../../../templates/content/ContentTemplate";
 import Tab from "../../../ui/tab/Tab";
 import styles from "./InformationPage.module.css";
@@ -24,23 +25,26 @@ const types = [
 const InformationPage: React.FC<InformationPageProps> = () => {
   const [active, setActive] = useState(types[0]);
   return (
-    <ContentTemplate title="Information">
-      <div className={styles.tabsGroup}>
-        {types.map((type) => (
-          <Tab
-            key={type.id}
-            active={active === type}
-            onClick={() => setActive(type)}
-          >
-            Tab {type.id}
-          </Tab>
-        ))}
-      </div>
-      <div className={styles.content}>
-        <h2 className={styles.textTitle}> {active.title} </h2>
-        <p className={styles.text}>{active.text}</p>
-      </div>
-    </ContentTemplate>
+    <>
+      <Header />
+      <ContentTemplate title="Information">
+        <div className={styles.tabsGroup}>
+          {types.map((type) => (
+            <Tab
+              key={type.id}
+              active={active === type}
+              onClick={() => setActive(type)}
+            >
+              Tab {type.id}
+            </Tab>
+          ))}
+        </div>
+        <div className={styles.content}>
+          <h2 className={styles.textTitle}> {active.title} </h2>
+          <p className={styles.text}>{active.text}</p>
+        </div>
+      </ContentTemplate>
+    </>
   );
 };
 export default InformationPage;
