@@ -3,7 +3,6 @@ import LikeDislike from "./ui/like-dislike/LikeDislike";
 import { setState } from "./likeDislikeSlice";
 import { useAppDispatch, useAppSelector } from "../../../hooks";
 
-
 type PostsLikeDislikeProps = {
   id: string | number;
 };

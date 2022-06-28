@@ -1,18 +1,16 @@
 import createSagaMiddleware from "redux-saga";
-import { compose, configureStore } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import selectedPostReducer from "./features/posts/selectedPostSlice";
 import likeDislikeReducer from "./features/posts/like-dislike/likeDislikeSlice";
 import { rootSaga } from "./sagas";
 import markedPostReducer from "./features/posts/marked-posts/markedPostSlice";
 import authReducer from "./features/auth/authSlice";
 import postListReducer from "./features/posts/posts-card-list/postListSlice";
+import userReducer from "./features/user/userSlice";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
-const composeEnhancers =
-  (typeof window !== "undefined" &&
-    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose;
+
 export const store = configureStore({
   reducer: {
     selectedPost: selectedPostReducer,
@@ -20,6 +18,7 @@ export const store = configureStore({
     markedPost: markedPostReducer,
     auth: authReducer,
     postList: postListReducer,
+    user: userReducer,
   },
 
   middleware: (getDefaultMiddleware) =>

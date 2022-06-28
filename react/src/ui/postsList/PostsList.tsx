@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 import PostCard from "../postCard/PostCard";
 import styles from "./PostsList.module.css";
 
@@ -23,7 +23,9 @@ const PostsList: React.FC<PostsListProps> = ({ onPreviewClick, posts }) => {
     <section>
       <div className={styles.list}>
         {posts.map((post) => (
-          <PostCard {...post} key={post.id} onPreviewClick={onPreviewClick} />
+          <>
+            <PostCard {...post} key={post.id} onPreviewClick={onPreviewClick} />
+          </>
         ))}
       </div>
     </section>

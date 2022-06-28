@@ -3,9 +3,18 @@ import {
   activateSaga,
   loginSaga,
   loginSuccesSaga,
+  refreshSaga,
+  refreshSuccessSaga,
   registerSaga,
 } from "./authSagas";
 
 export function* authSagas() {
-  yield all([registerSaga(), activateSaga(), loginSuccesSaga(), loginSaga()]);
+  yield all([
+    registerSaga(),
+    activateSaga(),
+    loginSuccesSaga(),
+    loginSaga(),
+    refreshSaga(),
+    refreshSuccessSaga(),
+  ]);
 }

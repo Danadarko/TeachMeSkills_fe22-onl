@@ -3,6 +3,7 @@ import {
   ActivatePayload,
   LoginPayload,
   LoginResponse,
+  RefreshResponse,
   RegisterPayload,
   RegisterResponse,
 } from "./types";
@@ -24,8 +25,11 @@ const authSlice = createSlice({
       state.tokens = action.payload;
     },
     loginFailure(state, action: { payload: string }) {
-        console.error("Login has been failed", action.payload);
+      console.error("Login has been failed", action.payload);
     },
+    refresh() {},
+    refreshSuccess(state, action: { payload: RefreshResponse }) {},
+    refreshFailure(state, action: { payload: string }) {},
   },
 });
 
@@ -39,5 +43,8 @@ export const {
   login,
   loginFailure,
   loginSuccess,
+  refresh,
+  refreshFailure,
+  refreshSuccess,
 } = authSlice.actions;
 export default authSlice.reducer;

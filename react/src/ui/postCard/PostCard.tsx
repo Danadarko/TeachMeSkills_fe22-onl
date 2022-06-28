@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import PostsLikeDislike from "../../features/posts/like-dislike/posts-like-dislike";
 import LikeDislike from "../../features/posts/like-dislike/ui/like-dislike/LikeDislike";
 import PostsMarkedUnmarked from "../../features/posts/marked-posts/posts-marked-unmarked";
@@ -31,7 +32,7 @@ const PostCard: React.FC<PostCardProps> = ({
         <img src={image} alt={`postpicture${id}`} className={styles.img} />
       </div>
       <h3 className={styles.title}>{title}</h3>
-      <p className={styles.text}>{text}</p>
+      <p className={styles.text}>{text.substring(0, 100)}</p>
       <div className={styles.flexBlock}>
         <p className={styles.date}>{new Date(date).toLocaleDateString()}</p>
 
@@ -48,6 +49,9 @@ const PostCard: React.FC<PostCardProps> = ({
           Preview
         </Button>
         <PostsMarkedUnmarked id={id} />
+        <Link to={`/posts/${id}`} className="button muted-button">
+          View Post
+        </Link>
       </div>
     </article>
   );

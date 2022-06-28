@@ -8,6 +8,9 @@ import {
   login,
   loginFailure,
   loginSuccess,
+  refresh,
+  refreshFailure,
+  refreshSuccess,
   register,
   registerFailure,
   registerSuccess,
@@ -66,6 +69,35 @@ export function* loginSuccesSaga() {
       [localStorage, "setItem"],
       "refresh-token",
       action.payload.refresh
+    );
+  });
+}
+
+export function* refreshSaga() {
+  yield* takeLatest(refresh, function* () {
+    const refreshToken = yield* call(
+      [localStorage, "getItem"],
+      "refresh-token"
+    ); // localStorage.getItem('refresh-token')
+    if (refreshToken) {
+      try {
+        const response = yield* call(AuthApi.refresh, refreshToken);
+        yield* put(refreshSuccess(response));
+      } catch (e) {
+        if (e instanceof Error) {
+          yield* put(refreshFailure(e.message));
+        }
+      }
+    }
+  });
+}
+
+export function* refreshSuccessSaga() {
+  yield* takeLatest(refreshSuccess, function* (action) {
+    yield* call(
+      [localStorage, "setItem"],
+      "access-token",
+      action.payload.access
     );
   });
 }

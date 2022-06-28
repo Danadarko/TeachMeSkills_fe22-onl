@@ -18,6 +18,10 @@ export type ActivatePayload = {
 export type LoginPayload = Omit<RegisterPayload, "username">;
 
 export type LoginResponse = {
-    access: string,
-    refresh: string,
-  };
+  access: string;
+  refresh: string;
+};
+
+export type RefreshResponse = {
+  access: string;
+};

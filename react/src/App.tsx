@@ -1,6 +1,5 @@
 import { Route, Routes, useNavigate } from "react-router-dom";
 import React from "react";
-import Header from "./components/header/Header";
 import LandingPage from "./components/landingPage/LandingPage";
 import LoginPage, { LoginForm } from "./features/pages/loginPage/LoginPage";
 import RegistrationPage from "./features/pages/registrationPage/RegistrationPage";
@@ -11,11 +10,16 @@ import "./App.css";
 import { AppContext } from "./AppContext";
 import InformationPage from "./features/pages/informationPage/InformationPage";
 import Activate from "./features/pages/activate/Activate";
+import { useAppDispatch } from "./hooks";
+import { getUserInfo } from "./features/user/userSlice";
+import SinglePostPage from "./features/posts/single-post-page/SinglePostPage";
 
 const users: LoginForm[] = [];
 function App() {
   const navigate = useNavigate();
   const appRef = React.createRef<HTMLDivElement>();
+  const dispatch = useAppDispatch();
+  dispatch(getUserInfo());
   return (
     <div className="App" ref={appRef}>
       <AppContext.Provider value={appRef}>
@@ -53,7 +57,9 @@ function App() {
           />
           <Route path={AppPages.SUCCESS_PAGE} element={<SuccessPage />}></Route>
           <Route path={AppPages.LANDING} element={<LandingPage />} />
-          <Route path={AppPages.POSTS} element={<MyPostsPage />} />
+          <Route path={AppPages.POSTS} element={<MyPostsPage />}></Route>
+          <Route path="/posts/:postId" element={<SinglePostPage />} />
+
           <Route
             path={AppPages.INFORMATION_PAGE}
             element={<InformationPage />}
@@ -61,6 +67,14 @@ function App() {
           <Route
             path={`${AppPages.ACTIVATE}/:uid/:token`}
             element={<Activate />}
+          />
+          <Route
+            path="*"
+            element={
+              <main style={{ padding: "1rem" }}>
+                <p>There's nothing here!</p>
+              </main>
+            }
           />
         </Routes>
       </AppContext.Provider>

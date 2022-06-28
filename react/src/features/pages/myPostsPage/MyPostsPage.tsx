@@ -9,6 +9,8 @@ import { getPostsFetch } from "../../posts/posts-card-list/postListSlice";
 import PostsList, { Post } from "../../../ui/postsList/PostsList";
 import TabList from "../../../ui/tabsList/TabList";
 import { TabEnum } from "../../../types";
+import { Outlet } from "react-router-dom";
+import { ReactComponent as CrossIcon } from "../../../assets/cross-icon.svg";
 
 type MyPostsPageProps = {};
 
@@ -31,10 +33,7 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
       ? posts.find((post) => post.id === selectedPostId)
       : null;
 
-  const filterPostsForAll = (post: Post) => true;
   const filterPostsByFavourite = (post: Post) => myFavourites[post.id];
-  const likes = { 1: { count: 1, state: "like" } };
-
   const filterPostsByLiked = (post: Post) =>
     myLikesDislikes[post.id]?.state === "like";
 
@@ -65,10 +64,13 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
 
   return (
     <section className={styles.landing}>
-      <Header />
+      {!selectedPost ? <Header /> : null}
       {selectedPostId != null ? (
         <div className={styles.overlayContainer}>
           <div className={styles.overlay}>
+            <div className={styles.crossIcon}>
+              <CrossIcon />
+            </div>
             {selectedPost ? <PostCard {...selectedPost} /> : null}
           </div>
         </div>
@@ -92,6 +94,7 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
           posts={getActiveTabPosts(activeTab, posts)}
         />
       </div>
+      <Outlet />
     </section>
   );
 };

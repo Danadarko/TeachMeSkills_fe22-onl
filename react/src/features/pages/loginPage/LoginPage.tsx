@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../../hooks";
 import { login } from "../../auth/authSlice";
 import Header from "../../../components/header/Header";
+import { getUserInfo } from "../../user/userSlice";
 
 export type LoginForm = {
   email: string;
@@ -44,7 +45,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
           onSubmit={(e) => {
             e.preventDefault();
             dispatch(login({ email, password }));
-            console.log(e);
+            dispatch(getUserInfo());
           }}
           className={styles.form}
         >
