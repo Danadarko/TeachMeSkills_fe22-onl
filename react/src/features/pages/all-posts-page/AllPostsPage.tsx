@@ -32,29 +32,17 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
     dispatch(actions.getPostsFetch());
   }, [dispatch]);
 
+  //------------------- Preview feature
   const selectedPost =
     selectedPostId != null
       ? posts.find((post) => post.id === selectedPostId)
       : null;
 
+  //------------------- Filtering posts by tabs categories
   const filterPostsByFavourite = (post: Post) => myFavourites[post.id];
   const filterPostsByLiked = (post: Post) =>
     myLikesDislikes[post.id]?.state === "like";
 
-  {
-    /*const getActiveTabFilter = (
-    activeTab: TabEnum
-  ): ((post: Post) => boolean) => {
-    switch (activeTab) {
-      case TabEnum.All:
-        return filterPostsForAll;
-      case TabEnum.MyFavourites:
-        return filterPostsByFavourite;
-      case TabEnum.Popular:
-        return filterPostsByLiked;
-    }
-  };*/
-  }
   const getActiveTabPosts = (activeTab: TabEnum, posts: Post[]): Post[] => {
     switch (activeTab) {
       case TabEnum.All:
@@ -66,7 +54,48 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
     }
   };
 
+  //------------------- Sorting posts by radio buttons values
+
   const SORT_RADIO = Object.values(SortEnum);
+
+  const getCheckedRadioButtonPosts = (
+    checkedButton: SortEnum,
+    posts: Post[]
+  ): Post[] => {
+    switch (checkedButton) {
+      case SortEnum.Text:
+        const postsSortedByText = [...posts].sort((a, b) => {
+          if (a.text < b.text) {
+            return -1;
+          } else if (a.text > b.text) {
+            return 1;
+          }
+          return 0;
+        });
+        return getActiveTabPosts(activeTab, postsSortedByText);
+      case SortEnum.Title:
+        const postsSortedByTitle = [...posts].sort((a, b) => {
+          if (a.title < b.title) {
+            return -1;
+          } else if (a.title > b.title) {
+            return 1;
+          }
+          return 0;
+        });
+        return getActiveTabPosts(activeTab, postsSortedByTitle);
+      case SortEnum.Lesson_num:
+        const postsSortedByLessonNum = [...posts].sort((a, b) => {
+          return a.lesson_num - b.lesson_num;
+        });
+        return getActiveTabPosts(activeTab, postsSortedByLessonNum);
+      case SortEnum.Date:
+        const postsByDate = [...posts].sort((a, b) =>
+          a.date > b.date ? -1 : a.date < b.date ? 1 : 0
+        );
+        return getActiveTabPosts(activeTab, postsByDate);
+    }
+  };
+
   return (
     <section className={styles.landing}>
       {!selectedPost ? <Header /> : null}
@@ -85,26 +114,33 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
       ) : null}
 
       <div className="container">
-        <div className={styles.group}>
-          <h2 className={styles.title}>All posts</h2>
-          <Link to={AppPages.ADD_POST_PAGE} className={styles.link}>
-            <Button role="presentation">+ Add</Button>
-          </Link>
+        <div className={styles.features}>
+          <div>
+            <div className={styles.group}>
+              <h2 className={styles.title}>All posts</h2>
+              <Link to={AppPages.ADD_POST_PAGE} className={styles.link}>
+                <Button role="presentation">+ Add</Button>
+              </Link>
+            </div>
+            <TabList
+              tabs={TABS_LIST}
+              activeTab={activeTab}
+              onTabClick={setActiveTab}
+            />
+          </div>
+          <form className={styles.form}>
+            <legend className={styles.sortTitle}>Sort by:</legend>
+            <RadioButtonList
+              radioButtons={SORT_RADIO}
+              checkedButton={checkedButton}
+              onRadioButtonChange={setCheckedButton}
+            ></RadioButtonList>
+          </form>
         </div>
-        <TabList
-          tabs={TABS_LIST}
-          activeTab={activeTab}
-          onTabClick={setActiveTab}
-        />
-        <RadioButtonList
-          radioButtons={SORT_RADIO}
-          checkedButton={checkedButton}
-          onRadioButtonChange={setCheckedButton}
-        ></RadioButtonList>
 
         <PostsList
           onPreviewClick={(id) => dispatch(setSelectedPost(id))}
-          posts={getActiveTabPosts(activeTab, posts)}
+          posts={getCheckedRadioButtonPosts(checkedButton, posts)}
         />
       </div>
       <Outlet />

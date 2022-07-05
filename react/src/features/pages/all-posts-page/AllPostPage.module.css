@@ -9,3 +9,9 @@
     width: 100%;
     max-width: 90px;
 }
+
+.features {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}

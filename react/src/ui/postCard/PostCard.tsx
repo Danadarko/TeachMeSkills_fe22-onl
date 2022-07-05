@@ -11,7 +11,7 @@ type PostCardProps = {
   image?: string | undefined;
   text: string;
   date: string;
-  lesson_num?: number;
+  lesson_num: number;
   title: string;
   author?: number;
   onPreviewClick?: (id: string | number) => void;
@@ -50,10 +50,7 @@ const PostCard: React.FC<PostCardProps> = ({
           Preview
         </Button>
         <PostsMarkedUnmarked id={id} />
-        <Link
-          to={`${AppPages.All_POSTS}/${id}`}
-          className={styles.link}
-        >
+        <Link to={`${AppPages.All_POSTS}/${id}`} className={styles.link}>
           <Button role="presentation">View post</Button>
         </Link>
       </div>

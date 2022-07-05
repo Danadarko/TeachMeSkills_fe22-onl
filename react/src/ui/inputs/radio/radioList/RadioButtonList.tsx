@@ -1,5 +1,6 @@
 import { SortEnum } from "../../../../features/pages/all-posts-page/SortEnum";
 import RadioButton from "../radio-button/RadioButton";
+import styles from "./RadioButtonList.module.css";
 
 type RadioButtonListProps = {
   radioButtons: SortEnum[];
@@ -13,7 +14,7 @@ const RadioButtonList: React.FC<RadioButtonListProps> = ({
   checkedButton,
 }) => {
   return (
-    <div>
+    <div className={styles.list}>
       {radioButtons.map((button) => (
         <RadioButton
           onChange={() => onRadioButtonChange(button)}
