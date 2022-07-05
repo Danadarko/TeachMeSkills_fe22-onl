@@ -6,4 +6,6 @@
     cursor: pointer;
     border: none;
     color: var(--primary-text-color);
+    margin-bottom: 20px;
+    display: block;
 }

@@ -1,5 +1,5 @@
 .header {
-    background-color: white;
+    background-color: var(--background-white);
     height: 10vh;
     position: fixed;
     top: 0;
@@ -21,4 +21,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.checkboxIsOpen {
+    color: #fff;
+}
+
+.checkbox {
+    color: var(--ls-blue);
 }

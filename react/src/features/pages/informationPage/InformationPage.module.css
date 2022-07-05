@@ -1,0 +1,19 @@
+.tabsGroup {
+    margin-bottom: 30px;
+}
+
+.content {
+    max-width: 650px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 7px 0px #e7e7e7;
+    min-height: 308px;
+}
+
+.textTitle {
+    margin-bottom: 20px;
+}
+
+.text {
+    text-indent: 1.5em;
+}

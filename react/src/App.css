@@ -1,0 +1,35 @@
+#root {
+    min-height: 100vh;
+    --ls-blue: rgb(37, 37, 129);
+    --ls-label-color: rgb(115, 118, 119);
+    --ls-background: #f4f7fe;
+    --ds-blue: rgb(26, 26, 94);
+    --ds-label-color: rgb(72, 72, 72);
+    --ds-background: rgb(145, 145, 232);
+    --background-blue: var(--ls-blue);
+    --primary-text-color: #ffffff;
+    --text-color-blue: var(--ls-blue);
+    --background-grey: rgb(237, 237, 237);
+    --text-color-grey: var(--ls-label-color);
+    --background-white: var(--ls-background);
+}
+
+@media (prefers-color-scheme: dark) {
+    #root {
+        --background-blue: var(--ds-blue);
+        --text-color-blue: var(--ds-blue);
+        --text-color-grey: var(--ds-label-color);
+        --background-white: var(--ds-background);
+    }
+}
+
+
+/*.App {
+    min-height: 100vh;
+    --background-blue: #252581;
+    --primary-text-color: #ffffff;
+    --text-color-blue: #252581;
+    --background-grey: #eeeeee;
+    --text-color-grey: #737677;
+    --background-white: #fff;
+}*/
