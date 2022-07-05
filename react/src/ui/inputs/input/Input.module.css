@@ -10,12 +10,13 @@
         outline: none;
         border: 2px solid var(--text-color-blue);
         border-radius: 20px;
-        padding: 5px;
+        padding: 10px;
         margin-top: 5px;
         width: 100%;
-        background-color: var(--background-grey);
+        height: 30px;
+        background-color: var(--primary-text-color);
     }
     
     .input:focus {
-        box-shadow: 2px 2px;
+        box-shadow: 0px 0px 4px #132a80;
     }

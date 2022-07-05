@@ -5,6 +5,7 @@ import { ReactComponent as UserIcon } from "../../assets/user-icon.svg";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 
 import { getUserInfo } from "../../features/user/userSlice";
+import { SearchBar } from "../../features/search";
 type MainProps = {};
 
 const Main: React.FC<MainProps> = () => {
@@ -16,6 +17,7 @@ const Main: React.FC<MainProps> = () => {
         <UserIcon />
         {userInfo ? userInfo.username : "Username"}
       </PrimaryLink>
+      <SearchBar></SearchBar>
     </div>
   );
 };

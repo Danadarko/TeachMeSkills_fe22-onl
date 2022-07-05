@@ -5,27 +5,31 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import PostCard from "../../../ui/postCard/PostCard";
 import Header from "../../../components/header/Header";
 import { useEffect, useState } from "react";
-import { getPostsFetch } from "../../posts/posts-card-list/postListSlice";
-import PostsList, { Post } from "../../../ui/postsList/PostsList";
+import { actions } from "../../posts/posts-card-list/postListSlice";
+import PostsList from "../../../ui/postsList/PostsList";
 import TabList from "../../../ui/tabsList/TabList";
-import { TabEnum } from "../../../types";
-import { Outlet } from "react-router-dom";
+import { AppPages, TabEnum } from "../../../types";
+import { Link, Outlet } from "react-router-dom";
 import { ReactComponent as CrossIcon } from "../../../assets/cross-icon.svg";
+import { Post } from "../../../types/post";
+import { SortEnum } from "./SortEnum";
+import RadioButtonList from "../../../ui/inputs/radio/radioList/RadioButtonList";
 
-type MyPostsPageProps = {};
+type AllPostsPageProps = {};
 
 const TABS_LIST = Object.values(TabEnum);
 
-const MyPostsPage: React.FC<MyPostsPageProps> = () => {
+const AllPostsPage: React.FC<AllPostsPageProps> = () => {
   const selectedPostId = useAppSelector((state) => state.selectedPost.id);
   const myFavourites = useAppSelector((state) => state.markedPost);
   const posts = useAppSelector((state) => state.postList.posts);
   const myLikesDislikes = useAppSelector((state) => state.likeDislike);
   const [activeTab, setActiveTab] = useState(TabEnum.All);
+  const [checkedButton, setCheckedButton] = useState(SortEnum.Text);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getPostsFetch());
+    dispatch(actions.getPostsFetch());
   }, [dispatch]);
 
   const selectedPost =
@@ -62,13 +66,17 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
     }
   };
 
+  const SORT_RADIO = Object.values(SortEnum);
   return (
     <section className={styles.landing}>
       {!selectedPost ? <Header /> : null}
       {selectedPostId != null ? (
         <div className={styles.overlayContainer}>
           <div className={styles.overlay}>
-            <div className={styles.crossIcon}>
+            <div
+              className={styles.crossIcon}
+              onClick={() => dispatch(setSelectedPost(null))}
+            >
               <CrossIcon />
             </div>
             {selectedPost ? <PostCard {...selectedPost} /> : null}
@@ -78,16 +86,21 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
 
       <div className="container">
         <div className={styles.group}>
-          <h2 className={styles.title}>My posts</h2>
-          <div className={styles.btnContainer}>
-            <Button>+ Add</Button>
-          </div>
+          <h2 className={styles.title}>All posts</h2>
+          <Link to={AppPages.ADD_POST_PAGE} className={styles.link}>
+            <Button role="presentation">+ Add</Button>
+          </Link>
         </div>
         <TabList
           tabs={TABS_LIST}
           activeTab={activeTab}
           onTabClick={setActiveTab}
         />
+        <RadioButtonList
+          radioButtons={SORT_RADIO}
+          checkedButton={checkedButton}
+          onRadioButtonChange={setCheckedButton}
+        ></RadioButtonList>
 
         <PostsList
           onPreviewClick={(id) => dispatch(setSelectedPost(id))}
@@ -99,4 +112,4 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
   );
 };
 
-export default MyPostsPage;
+export default AllPostsPage;

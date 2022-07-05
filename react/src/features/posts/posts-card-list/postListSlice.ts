@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Post } from "../../../ui/postsList/PostsList";
+import { Post } from "../../../types/post";
 
 const postListSlice = createSlice({
   name: "postList",
@@ -22,6 +22,5 @@ const postListSlice = createSlice({
   },
 });
 
-export const { getPostsFetch, getPostsFailure, getPostsSuccess } =
-  postListSlice.actions;
+export const { actions } = postListSlice;
 export default postListSlice.reducer;
