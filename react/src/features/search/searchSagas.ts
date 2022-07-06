@@ -8,7 +8,6 @@ export function* searchSaga() {
     try {
       const result = yield* call(SearchApi.search, action.payload);
       yield* put(actions.searchSuccess(result));
-      console.log(result);
     } catch (e) {
       if (e instanceof Error) {
         yield* put(actions.searchFailure(e.message));

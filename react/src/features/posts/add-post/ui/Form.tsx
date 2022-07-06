@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import Button from "../../../ui/button/Button";
+import Button from "../../../../ui/button/Button";
 import styles from "./Form.module.css";
-import Input from "../../../ui/inputs/input/Input";
-import { Textarea } from "../../../ui/inputs/textarea/Textarea";
-import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { addPost } from "./addPostSlice";
+import Input from "../../../../ui/inputs/input/Input";
+import { Textarea } from "../../../../ui/inputs/textarea/Textarea";
+import { useAppDispatch, useAppSelector } from "../../../../hooks";
+import { addPost } from "../addPostSlice";
 import { useNavigate } from "react-router-dom";
-import { AppPages } from "../../../types";
+import { AppPages } from "../../../../types";
 
 type FormProps = {};
 

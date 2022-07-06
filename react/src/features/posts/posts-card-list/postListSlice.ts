@@ -1,22 +1,47 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { act } from "react-dom/test-utils";
 import { Post } from "../../../types/post";
+import { SortEnum } from "../../pages/all-posts-page/SortEnum";
 
 const postListSlice = createSlice({
   name: "postList",
-  initialState: { posts: [], isLoading: false } as {
+  initialState: {
+    posts: [],
+    isFetching: true,
+    offset: 0,
+    limit: 10,
+  } as {
     posts: Post[];
-    isLoading: boolean;
+    isFetching: boolean;
+    offset: number;
+    limit: number;
   },
   reducers: {
-    getPostsFetch: (state) => {
-      state.isLoading = true;
+    getPostsFetch: (
+      state,
+      action: { payload: { limit: number; offset: number; text: SortEnum } }
+    ) => {
+      state.isFetching = true;
     },
     getPostsSuccess: (state, action: { payload: Post[] }) => {
       state.posts = action.payload;
-      state.isLoading = false;
+
+      state.limit += 0;
+      state.isFetching = false;
+    },
+    getPostUpdate: (state, action: { payload: { isFetching: boolean } }) => {
+      state.isFetching = true;
     },
     getPostsFailure: (state, action: { payload: string }) => {
-      state.isLoading = false;
+      state.isFetching = false;
+      console.error("Getting the posts has been failed", action.payload);
+    },
+    getSortedPosts: (
+      state,
+      action: { payload: { limit: number; offset: number; text: SortEnum } }
+    ) => {},
+    getSortedPostsSuccess: (state, action: { payload: Post[] }) => {},
+    getSortedPostsFailure: (state, action: { payload: string }) => {
       console.error("Getting the posts has been failed", action.payload);
     },
   },

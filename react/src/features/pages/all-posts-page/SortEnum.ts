@@ -1,6 +1,6 @@
 export enum SortEnum {
-  Title = "Title",
-  Text = "Text",
-  Date = "Date",
-  Lesson_num = "Lesson number",
+  Title = "title",
+  Text = "text",
+  Date = "date",
+  Lesson_num = "lesson_num",
 }
