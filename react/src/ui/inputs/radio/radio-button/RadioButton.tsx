@@ -7,7 +7,12 @@ type RadioProps = {
   checked: boolean;
 };
 
-const Radio: React.FC<RadioProps> = ({ onChange, children, value }) => {
+const Radio: React.FC<RadioProps> = ({
+  onChange,
+  children,
+  value,
+  checked,
+}) => {
   return (
     <label className={styles.label}>
       <input
@@ -16,6 +21,7 @@ const Radio: React.FC<RadioProps> = ({ onChange, children, value }) => {
         name="sort"
         value={value}
         className={styles.radio}
+        checked={checked}
       />
       {children}
     </label>

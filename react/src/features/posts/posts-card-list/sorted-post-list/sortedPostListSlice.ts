@@ -7,31 +7,46 @@ const sortedPostListSlice = createSlice({
   initialState: {
     sortedPosts: [],
     isFetching: false,
-    offset: 10,
+    offset: 0,
     limit: 10,
+    isLastPage: false,
   } as {
     sortedPosts: Post[];
     isFetching: boolean;
     offset: number;
     limit: number;
+    isLastPage: boolean;
   },
   reducers: {
-    getSortedPostUpdate: (
-      state,
-      action: { payload: { isFetching: boolean } }
-    ) => {
-      state.isFetching = false;
+    fetchNextPage: (state) => {
+      if (!state.isLastPage) {
+        state.offset = state.offset + state.limit;
+      }
     },
     getSortedPosts: (
       state,
       action: { payload: { limit: number; offset: number; text: SortEnum } }
     ) => {
       state.isFetching = true;
+      state.limit = 23;
     },
-    getSortedPostsSuccess: (state, action: { payload: Post[] }) => {
-      state.sortedPosts = action.payload;
-      state.offset = state.offset + state.limit;
-      //state.isFetching = false;
+    getSortedPostsSuccess: (
+      state,
+      action: {
+        payload: { sortedPosts: Post[]; offset: number; limit: number };
+      }
+    ) => {
+      state.isLastPage =
+        action.payload.sortedPosts.length < action.payload.limit;
+      if (action.payload.offset === 0) {
+        state.sortedPosts = action.payload.sortedPosts;
+      } else {
+        state.sortedPosts = [
+          ...state.sortedPosts,
+          ...action.payload.sortedPosts,
+        ];
+      }
+      state.isFetching = false;
     },
     getSortedPostsFailure: (state, action: { payload: string }) => {
       console.error(

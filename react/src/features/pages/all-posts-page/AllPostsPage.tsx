@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import PostCard from "../../../ui/postCard/PostCard";
 import Header from "../../../components/header/Header";
 import { useEffect, useState } from "react";
-import { actions } from "../../posts/posts-card-list/postListSlice";
+
 import { actions as sortedActions } from "../../posts/posts-card-list/sorted-post-list/sortedPostListSlice";
 import PostsList from "../../../ui/postsList/PostsList";
 import TabList from "../../../ui/tabsList/TabList";
@@ -44,9 +44,10 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
           text: checkedButton,
         })
       );
-      console.log("getPosts");
     }
-  }, [isFetching, checkedButton, limit, offset]);
+    console.log("getPosts");
+  }, [checkedButton, limit, offset, dispatch]);
+
   /*useEffect(() => {
     if (isFetching) {
       dispatch(
@@ -65,7 +66,7 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
         (e.currentTarget.documentElement.scrollTop + window.innerHeight) <
       100
     ) {
-      dispatch(sortedActions.getSortedPostUpdate({ isFetching: false }));
+      dispatch(sortedActions.fetchNextPage());
     }
   };
 

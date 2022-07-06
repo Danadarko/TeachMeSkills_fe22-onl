@@ -9,7 +9,12 @@ export function* sortedPostListSaga() {
         FetchSortedPostsApi.fetchSortedPosts,
         action.payload
       );
-      yield* put(actions.getSortedPostsSuccess(result));
+      yield* put(
+        actions.getSortedPostsSuccess({
+          sortedPosts: result,
+          ...action.payload,
+        })
+      );
     } catch (e) {
       if (e instanceof Error) {
         yield* put(actions.getSortedPostsFailure(e.message));
