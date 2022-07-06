@@ -35,6 +35,18 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
   );
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    if (!isFetching) {
+      dispatch(
+        sortedActions.getSortedPosts({
+          limit: limit,
+          offset: offset,
+          text: checkedButton,
+        })
+      );
+      console.log("getPosts");
+    }
+  }, [isFetching, checkedButton, limit, offset]);
   /*useEffect(() => {
     if (isFetching) {
       dispatch(
@@ -53,7 +65,7 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
         (e.currentTarget.documentElement.scrollTop + window.innerHeight) <
       100
     ) {
-      dispatch(sortedActions.getSortedPostUpdate({ isFetching: true }));
+      dispatch(sortedActions.getSortedPostUpdate({ isFetching: false }));
     }
   };
 
@@ -89,32 +101,6 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
   //------------------- Sorting posts by radio buttons values
 
   const SORT_RADIO = Object.values(SortEnum);
-
-  useEffect(() => {
-    if (isFetching) {
-      dispatch(
-        sortedActions.getSortedPosts({
-          limit: limit,
-          offset: offset,
-          text: checkedButton,
-        })
-      );
-      console.log("getPosts");
-    }
-  }, [isFetching]);
-
-  useEffect(() => {
-    dispatch(
-      sortedActions.getSortedPosts({
-        limit: 10,
-        offset: offset,
-        text: checkedButton,
-      })
-    );
-    console.log("sort");
-  }, [checkedButton]);
-
-  //const allPosts = sortedPosts ? sortedPosts : posts;
 
   return (
     <section className={styles.landing}>

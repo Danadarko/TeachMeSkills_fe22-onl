@@ -6,8 +6,8 @@ const sortedPostListSlice = createSlice({
   name: "SortedPostList",
   initialState: {
     sortedPosts: [],
-    isFetching: true,
-    offset: 0,
+    isFetching: false,
+    offset: 10,
     limit: 10,
   } as {
     sortedPosts: Post[];
@@ -20,7 +20,7 @@ const sortedPostListSlice = createSlice({
       state,
       action: { payload: { isFetching: boolean } }
     ) => {
-      state.isFetching = true;
+      state.isFetching = false;
     },
     getSortedPosts: (
       state,
@@ -30,8 +30,8 @@ const sortedPostListSlice = createSlice({
     },
     getSortedPostsSuccess: (state, action: { payload: Post[] }) => {
       state.sortedPosts = action.payload;
-      state.limit += 10;
-      state.isFetching = false;
+      state.offset = state.offset + state.limit;
+      //state.isFetching = false;
     },
     getSortedPostsFailure: (state, action: { payload: string }) => {
       console.error(
