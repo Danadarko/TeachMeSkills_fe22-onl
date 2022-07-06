@@ -23,7 +23,7 @@ const TABS_LIST = Object.values(TabEnum);
 const AllPostsPage: React.FC<AllPostsPageProps> = () => {
   const selectedPostId = useAppSelector((state) => state.selectedPost.id);
   const myFavourites = useAppSelector((state) => state.markedPost);
-  const posts = useAppSelector((state) => state.postList.posts);
+  //const posts = useAppSelector((state) => state.postList.posts);
   const sortedPosts = useAppSelector(
     (state) => state.sortedPostList.sortedPosts
   );
@@ -31,11 +31,11 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
   const [activeTab, setActiveTab] = useState(TabEnum.All);
   const [checkedButton, setCheckedButton] = useState(SortEnum.Title);
   const { isFetching, limit, offset } = useAppSelector(
-    (state) => state.postList
+    (state) => state.sortedPostList
   );
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (isFetching) {
       dispatch(
         actions.getPostsFetch({
@@ -44,7 +44,7 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
         })
       );
     }
-  }, [dispatch, isFetching]);
+  }, [dispatch, isFetching]);*/
 
   //------------------- Pagination
   const scrollHandler = (e: any): void => {
@@ -53,7 +53,7 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
         (e.currentTarget.documentElement.scrollTop + window.innerHeight) <
       100
     ) {
-      dispatch(actions.getPostUpdate({ isFetching: true }));
+      dispatch(sortedActions.getSortedPostUpdate({ isFetching: true }));
     }
   };
 
@@ -67,7 +67,7 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
   //------------------- Preview feature
   const selectedPost =
     selectedPostId != null
-      ? posts.find((post) => post.id === selectedPostId)
+      ? sortedPosts.find((post) => post.id === selectedPostId)
       : null;
 
   //------------------- Filtering posts by tabs categories
@@ -90,7 +90,31 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
 
   const SORT_RADIO = Object.values(SortEnum);
 
-  const allPosts = sortedPosts ? sortedPosts : posts;
+  useEffect(() => {
+    if (isFetching) {
+      dispatch(
+        sortedActions.getSortedPosts({
+          limit: limit,
+          offset: offset,
+          text: checkedButton,
+        })
+      );
+      console.log("getPosts");
+    }
+  }, [isFetching]);
+
+  useEffect(() => {
+    dispatch(
+      sortedActions.getSortedPosts({
+        limit: 10,
+        offset: offset,
+        text: checkedButton,
+      })
+    );
+    console.log("sort");
+  }, [checkedButton]);
+
+  //const allPosts = sortedPosts ? sortedPosts : posts;
 
   return (
     <section className={styles.landing}>
@@ -129,23 +153,14 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
             <RadioButtonList
               radioButtons={SORT_RADIO}
               checkedButton={checkedButton}
-              onRadioButtonChange={() => {
-                setCheckedButton(checkedButton);
-                dispatch(
-                  sortedActions.getSortedPosts({
-                    limit: limit,
-                    offset: offset,
-                    text: checkedButton,
-                  })
-                );
-              }}
+              onRadioButtonChange={setCheckedButton}
             ></RadioButtonList>
           </form>
         </div>
 
         <PostsList
           onPreviewClick={(id) => dispatch(setSelectedPost(id))}
-          posts={getActiveTabPosts(activeTab, allPosts)}
+          posts={getActiveTabPosts(activeTab, sortedPosts)}
         />
       </div>
       <Outlet />

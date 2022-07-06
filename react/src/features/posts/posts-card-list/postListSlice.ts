@@ -23,7 +23,7 @@ const postListSlice = createSlice({
     },
     getPostsSuccess: (state, action: { payload: Post[] }) => {
       state.posts = action.payload;
-      state.limit += 0;
+      state.limit += 10;
       state.isFetching = false;
     },
     getPostUpdate: (state, action: { payload: { isFetching: boolean } }) => {

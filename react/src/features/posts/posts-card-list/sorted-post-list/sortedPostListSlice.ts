@@ -16,7 +16,10 @@ const sortedPostListSlice = createSlice({
     limit: number;
   },
   reducers: {
-    getPostUpdate: (state, action: { payload: { isFetching: boolean } }) => {
+    getSortedPostUpdate: (
+      state,
+      action: { payload: { isFetching: boolean } }
+    ) => {
       state.isFetching = true;
     },
     getSortedPosts: (
@@ -27,7 +30,7 @@ const sortedPostListSlice = createSlice({
     },
     getSortedPostsSuccess: (state, action: { payload: Post[] }) => {
       state.sortedPosts = action.payload;
-      state.limit += 0;
+      state.limit += 10;
       state.isFetching = false;
     },
     getSortedPostsFailure: (state, action: { payload: string }) => {
