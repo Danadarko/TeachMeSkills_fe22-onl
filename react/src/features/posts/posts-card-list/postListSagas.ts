@@ -14,15 +14,3 @@ export function* postListSaga() {
     }
   });
 }
-export function* sortedPostListSaga() {
-  yield takeLatest(actions.getSortedPosts, function* (action) {
-    try {
-      const result = yield* call(FetchPostsApi.fetchAllPosts, action.payload);
-      yield* put(actions.getSortedPostsSuccess(result));
-    } catch (e) {
-      if (e instanceof Error) {
-        yield* put(actions.getSortedPostsFailure(e.message));
-      }
-    }
-  });
-}

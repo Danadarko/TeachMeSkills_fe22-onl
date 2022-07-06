@@ -10,6 +10,7 @@ import userReducer from "./features/user/userSlice";
 import searchReducer from "./features/search";
 import addPostReducer from "./features/posts/add-post";
 import myPostListReducer from "./features/posts/my-posts";
+import sortedPostListReducer from "./features/posts/posts-card-list/sorted-post-list";
 
 let sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
@@ -21,6 +22,7 @@ export const store = configureStore({
     markedPost: markedPostReducer,
     auth: authReducer,
     postList: postListReducer,
+    sortedPostList: sortedPostListReducer,
     user: userReducer,
     search: searchReducer,
     addPost: addPostReducer,

@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
 import { Post } from "../../../types/post";
-import { SortEnum } from "../../pages/all-posts-page/SortEnum";
 
 const postListSlice = createSlice({
   name: "postList",
@@ -19,13 +17,12 @@ const postListSlice = createSlice({
   reducers: {
     getPostsFetch: (
       state,
-      action: { payload: { limit: number; offset: number; text: SortEnum } }
+      action: { payload: { limit: number; offset: number } }
     ) => {
       state.isFetching = true;
     },
     getPostsSuccess: (state, action: { payload: Post[] }) => {
       state.posts = action.payload;
-
       state.limit += 0;
       state.isFetching = false;
     },
@@ -34,15 +31,10 @@ const postListSlice = createSlice({
     },
     getPostsFailure: (state, action: { payload: string }) => {
       state.isFetching = false;
-      console.error("Getting the posts has been failed", action.payload);
-    },
-    getSortedPosts: (
-      state,
-      action: { payload: { limit: number; offset: number; text: SortEnum } }
-    ) => {},
-    getSortedPostsSuccess: (state, action: { payload: Post[] }) => {},
-    getSortedPostsFailure: (state, action: { payload: string }) => {
-      console.error("Getting the posts has been failed", action.payload);
+      console.error(
+        "The receiving of the posts has been failed",
+        action.payload
+      );
     },
   },
 });

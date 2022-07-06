@@ -13,9 +13,7 @@ test("success saga flow", () => {
     .not.put.like({
       action: { type: actions.getPostsFailure("any string").type },
     })
-    .dispatch(
-      actions.getPostsFetch({ limit: 3, offset: 3, text: SortEnum.Title })
-    )
+    .dispatch(actions.getPostsFetch({ limit: 3, offset: 3 }))
     .run();
 });
 
@@ -31,8 +29,6 @@ test("failure saga flow", () => {
     .not.put.like({
       action: { type: actions.getPostsSuccess([]).type },
     })
-    .dispatch(
-      actions.getPostsFetch({ limit: 3, offset: 3, text: SortEnum.Date })
-    )
+    .dispatch(actions.getPostsFetch({ limit: 3, offset: 3 }))
     .run();
 });

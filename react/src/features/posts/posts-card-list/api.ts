@@ -4,13 +4,12 @@ import { SortEnum } from "../../pages/all-posts-page/SortEnum";
 
 export namespace FetchPostsApi {
   export async function fetchAllPosts(params: {
-    text: SortEnum;
     limit: number;
     offset: number;
   }): Promise<Post[]> {
     try {
       const result = await fetch(
-        `${baseUrl}blog/posts/?limit=${params.limit}&offset=${params.offset}&ordering=${params.text}`
+        `${baseUrl}blog/posts/?limit=${params.limit}&offset=${params.offset}`
       );
       const { results } = await result.json();
       if (!result.ok) {

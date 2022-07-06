@@ -6,6 +6,7 @@ import PostCard from "../../../ui/postCard/PostCard";
 import Header from "../../../components/header/Header";
 import { useEffect, useState } from "react";
 import { actions } from "../../posts/posts-card-list/postListSlice";
+import { actions as sortedActions } from "../../posts/posts-card-list/sorted-post-list/sortedPostListSlice";
 import PostsList from "../../../ui/postsList/PostsList";
 import TabList from "../../../ui/tabsList/TabList";
 import { AppPages, TabEnum } from "../../../types";
@@ -23,7 +24,9 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
   const selectedPostId = useAppSelector((state) => state.selectedPost.id);
   const myFavourites = useAppSelector((state) => state.markedPost);
   const posts = useAppSelector((state) => state.postList.posts);
-  const sortedPosts = useAppSelector((state) => state.postList.posts);
+  const sortedPosts = useAppSelector(
+    (state) => state.sortedPostList.sortedPosts
+  );
   const myLikesDislikes = useAppSelector((state) => state.likeDislike);
   const [activeTab, setActiveTab] = useState(TabEnum.All);
   const [checkedButton, setCheckedButton] = useState(SortEnum.Title);
@@ -38,7 +41,6 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
         actions.getPostsFetch({
           limit: limit,
           offset: offset,
-          text: checkedButton,
         })
       );
     }
@@ -89,6 +91,7 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
   const SORT_RADIO = Object.values(SortEnum);
 
   const allPosts = sortedPosts ? sortedPosts : posts;
+
   return (
     <section className={styles.landing}>
       {!selectedPost ? <Header /> : null}
@@ -129,7 +132,7 @@ const AllPostsPage: React.FC<AllPostsPageProps> = () => {
               onRadioButtonChange={() => {
                 setCheckedButton(checkedButton);
                 dispatch(
-                  actions.getSortedPosts({
+                  sortedActions.getSortedPosts({
                     limit: limit,
                     offset: offset,
                     text: checkedButton,
