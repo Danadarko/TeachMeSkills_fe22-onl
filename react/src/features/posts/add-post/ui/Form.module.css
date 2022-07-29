@@ -1,0 +1,11 @@
+.group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 20%;
+}
+
+.btnGroup {
+    max-width: 10%;
+    width: 100%;
+    float: right;
+}

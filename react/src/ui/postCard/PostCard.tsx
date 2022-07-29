@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import PostsLikeDislike from "../../features/posts/like-dislike/posts-like-dislike";
 import LikeDislike from "../../features/posts/like-dislike/ui/like-dislike/LikeDislike";
 import PostsMarkedUnmarked from "../../features/posts/marked-posts/posts-marked-unmarked";
+import { AppPages } from "../../types";
 import Button from "../button/Button";
 import styles from "./PostCard.module.css";
 
@@ -10,7 +11,7 @@ type PostCardProps = {
   image?: string | undefined;
   text: string;
   date: string;
-  lesson_num?: number;
+  lesson_num: number;
   title: string;
   author?: number;
   onPreviewClick?: (id: string | number) => void;
@@ -29,7 +30,7 @@ const PostCard: React.FC<PostCardProps> = ({
   return (
     <article className={styles.card}>
       <div className={styles.imgContainer}>
-        <img src={image} alt={`postpicture${id}`} className={styles.img} />
+        <img src={image} alt={title} className={styles.img} />
       </div>
       <h3 className={styles.title}>{title}</h3>
       <p className={styles.text}>{text.substring(0, 100)}</p>
@@ -49,8 +50,8 @@ const PostCard: React.FC<PostCardProps> = ({
           Preview
         </Button>
         <PostsMarkedUnmarked id={id} />
-        <Link to={`/posts/${id}`} className="button muted-button">
-          View Post
+        <Link to={`${AppPages.All_POSTS}/${id}`} className={styles.link}>
+          <Button role="presentation">View post</Button>
         </Link>
       </div>
     </article>

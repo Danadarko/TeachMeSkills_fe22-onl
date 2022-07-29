@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "../../../ui/button/Button";
-import Input from "../../../ui/input/Input";
+import Input from "../../../ui/inputs/input/Input";
 import { AppPages } from "../../../types";
 import styles from "./RegistrationPage.module.css";
 import { ReactComponent as VerticalBar } from "../../../assets/vertical-bar icon.svg";

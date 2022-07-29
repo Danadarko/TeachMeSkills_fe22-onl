@@ -9,11 +9,16 @@ type MenuProps = {};
 const Menu: React.FC<MenuProps> = () => {
   return (
     <div className={styles.menu}>
-      <Link to={AppPages.POSTS} className={styles.defaultLink}>
+      <Link to={AppPages.All_POSTS} className={styles.defaultLink}>
+        <PrimaryLink color={LinkColor.WHITE}>All posts</PrimaryLink>
+      </Link>
+      <Link to={AppPages.MY_POSTS} className={styles.defaultLink}>
         <PrimaryLink color={LinkColor.WHITE}>My posts</PrimaryLink>
       </Link>
-      <PrimaryLink color={LinkColor.WHITE}>All posts</PrimaryLink>
-      <PrimaryLink color={LinkColor.WHITE}>Add posts</PrimaryLink>
+      <Link to={AppPages.ADD_POST_PAGE} className={styles.defaultLink}>
+        <PrimaryLink color={LinkColor.WHITE}>Add posts</PrimaryLink>
+      </Link>
+
       <Link to={AppPages.LOGIN} className={styles.defaultLink}>
         <PrimaryLink color={LinkColor.WHITE}>
           Log out <LogOutIcon />

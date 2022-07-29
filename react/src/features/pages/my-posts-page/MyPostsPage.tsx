@@ -5,12 +5,13 @@ import { useAppDispatch, useAppSelector } from "../../../hooks";
 import PostCard from "../../../ui/postCard/PostCard";
 import Header from "../../../components/header/Header";
 import { useEffect, useState } from "react";
-import { getPostsFetch } from "../../posts/posts-card-list/postListSlice";
-import PostsList, { Post } from "../../../ui/postsList/PostsList";
+import PostsList from "../../../ui/postsList/PostsList";
 import TabList from "../../../ui/tabsList/TabList";
-import { TabEnum } from "../../../types";
-import { Outlet } from "react-router-dom";
+import { AppPages, TabEnum } from "../../../types";
+import { Link, Outlet } from "react-router-dom";
 import { ReactComponent as CrossIcon } from "../../../assets/cross-icon.svg";
+import { Post } from "../../../types/post";
+import { actions } from "../../posts/my-posts/myPostListSlice";
 
 type MyPostsPageProps = {};
 
@@ -19,46 +20,32 @@ const TABS_LIST = Object.values(TabEnum);
 const MyPostsPage: React.FC<MyPostsPageProps> = () => {
   const selectedPostId = useAppSelector((state) => state.selectedPost.id);
   const myFavourites = useAppSelector((state) => state.markedPost);
-  const posts = useAppSelector((state) => state.postList.posts);
+  const myPosts = useAppSelector((state) => state.myPostList.myPosts);
   const myLikesDislikes = useAppSelector((state) => state.likeDislike);
   const [activeTab, setActiveTab] = useState(TabEnum.All);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getPostsFetch());
+    dispatch(actions.getMyPostsFetch());
   }, [dispatch]);
 
   const selectedPost =
     selectedPostId != null
-      ? posts.find((post) => post.id === selectedPostId)
+      ? myPosts.find((post) => post.id === selectedPostId)
       : null;
 
   const filterPostsByFavourite = (post: Post) => myFavourites[post.id];
   const filterPostsByLiked = (post: Post) =>
     myLikesDislikes[post.id]?.state === "like";
 
-  {
-    /*const getActiveTabFilter = (
-    activeTab: TabEnum
-  ): ((post: Post) => boolean) => {
+  const getActiveTabPosts = (activeTab: TabEnum, myPosts: Post[]): Post[] => {
     switch (activeTab) {
       case TabEnum.All:
-        return filterPostsForAll;
+        return myPosts;
       case TabEnum.MyFavourites:
-        return filterPostsByFavourite;
+        return myPosts.filter(filterPostsByFavourite);
       case TabEnum.Popular:
-        return filterPostsByLiked;
-    }
-  };*/
-  }
-  const getActiveTabPosts = (activeTab: TabEnum, posts: Post[]): Post[] => {
-    switch (activeTab) {
-      case TabEnum.All:
-        return posts;
-      case TabEnum.MyFavourites:
-        return posts.filter(filterPostsByFavourite);
-      case TabEnum.Popular:
-        return posts.filter(filterPostsByLiked);
+        return myPosts.filter(filterPostsByLiked);
     }
   };
 
@@ -68,7 +55,10 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
       {selectedPostId != null ? (
         <div className={styles.overlayContainer}>
           <div className={styles.overlay}>
-            <div className={styles.crossIcon}>
+            <div
+              className={styles.crossIcon}
+              onClick={() => dispatch(setSelectedPost(null))}
+            >
               <CrossIcon />
             </div>
             {selectedPost ? <PostCard {...selectedPost} /> : null}
@@ -79,9 +69,9 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
       <div className="container">
         <div className={styles.group}>
           <h2 className={styles.title}>My posts</h2>
-          <div className={styles.btnContainer}>
-            <Button>+ Add</Button>
-          </div>
+          <Link to={AppPages.ADD_POST_PAGE} className={styles.link}>
+            <Button role="presentation">+ Add</Button>
+          </Link>
         </div>
         <TabList
           tabs={TABS_LIST}
@@ -91,7 +81,7 @@ const MyPostsPage: React.FC<MyPostsPageProps> = () => {
 
         <PostsList
           onPreviewClick={(id) => dispatch(setSelectedPost(id))}
-          posts={getActiveTabPosts(activeTab, posts)}
+          posts={getActiveTabPosts(activeTab, myPosts)}
         />
       </div>
       <Outlet />

@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./Input.module.css";
 type InputProps = {
-  type: "text" | "email" | "password";
+  type: "text" | "email" | "password" | "file";
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   title: string;
-  value: string;
+  value?: string;
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(

@@ -1,0 +1,17 @@
+.crossIcon {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.link {
+    text-decoration: none;
+    width: 100%;
+    max-width: 90px;
+}
+
+.features {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}

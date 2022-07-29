@@ -1,0 +1,10 @@
+.label {
+    font-size: 13.3px;
+    font-weight: 500;
+    color: var(--text-color-blue);
+    cursor: pointer;
+}
+
+.radio {
+    margin-right: 5px;
+}

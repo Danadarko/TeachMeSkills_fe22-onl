@@ -1,27 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Post } from "../../../ui/postsList/PostsList";
+import { Post } from "../../../types/post";
 
 const postListSlice = createSlice({
   name: "postList",
-  initialState: { posts: [], isLoading: false } as {
+  initialState: {
+    posts: [],
+    isFetching: true,
+    offset: 0,
+    limit: 10,
+  } as {
     posts: Post[];
-    isLoading: boolean;
+    isFetching: boolean;
+    offset: number;
+    limit: number;
   },
   reducers: {
-    getPostsFetch: (state) => {
-      state.isLoading = true;
+    getPostsFetch: (
+      state,
+      action: { payload: { limit: number; offset: number } }
+    ) => {
+      state.isFetching = true;
     },
     getPostsSuccess: (state, action: { payload: Post[] }) => {
       state.posts = action.payload;
-      state.isLoading = false;
+      state.limit += 10;
+      state.isFetching = false;
+    },
+    getPostUpdate: (state, action: { payload: { isFetching: boolean } }) => {
+      state.isFetching = true;
     },
     getPostsFailure: (state, action: { payload: string }) => {
-      state.isLoading = false;
-      console.error("Getting the posts has been failed", action.payload);
+      state.isFetching = false;
+      console.error(
+        "The receiving of the posts has been failed",
+        action.payload
+      );
     },
   },
 });
 
-export const { getPostsFetch, getPostsFailure, getPostsSuccess } =
-  postListSlice.actions;
+export const { actions } = postListSlice;
 export default postListSlice.reducer;
